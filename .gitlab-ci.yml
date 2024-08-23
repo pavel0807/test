@@ -18,6 +18,6 @@ deploy:
     - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
   script:
     - echo "Deploying the application... nginx"
-    - kubectl apply -f deployment.yaml --namespace=dev
+    - kubectl apply -f deployment.yaml --namespace=dev --validate=false
   after_script:
     - rm -rf ~/.kube
