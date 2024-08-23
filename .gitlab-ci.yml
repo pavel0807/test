@@ -9,7 +9,8 @@ deploy:
     VAULT_ID_TOKEN:
       aud: https://vault.mercurylark.corp:8200
   tags:
-    - dev
+    - shared
+    - shell 
   before_script:
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=prod-projects jwt=${VAULT_ID_TOKEN})"
     - export KUBE_CONFIG="$(vault kv get -field=config secret/dev/k8s)"
