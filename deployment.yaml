@@ -18,17 +18,3 @@ spec:
         image: harbor.mercurylark.corp/dev/nginx:latest 
         ports:
         - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-  namespace: dev
-spec:
-  selector:
-    app: nginx-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: ClusterIP
