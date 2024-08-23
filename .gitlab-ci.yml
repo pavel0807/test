@@ -4,6 +4,7 @@ stages:
 deploy:
   stage: deploy
   variables:
+    HARBOR_HOST: harbor.mercurylark.corp
     VAULT_ADDR: https://vault.mercurylark.corp:8200
   id_tokens:
     VAULT_ID_TOKEN:
