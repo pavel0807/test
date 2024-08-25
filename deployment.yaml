@@ -10,3 +10,5 @@ spec:
       image: harbor.mercurylark.corp/dev/nginx:latest 
       ports:
         - containerPort: 80
+  imagePullSecrets:
+    - name: harbor-secret
