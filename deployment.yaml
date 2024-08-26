@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: ModelCraft
+  name: model-craft
   namespace: dev
 
 spec:
