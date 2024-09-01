@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: model-craft
+  name: test-balancer-for-ml-app
   namespace: dev
 
 spec:
