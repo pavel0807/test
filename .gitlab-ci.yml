@@ -1,27 +1,16 @@
 stages:
-  - deploy
+- build
 
-deploy:
-  stage: deploy
+build:
+  stage: build
+  tags:
+   - shared
+   - shell
   variables:
-    HARBOR_HOST: harbor.mercurylark.corp
     VAULT_ADDR: https://vault.mercurylark.corp:8200
   id_tokens:
     VAULT_ID_TOKEN:
       aud: https://vault.mercurylark.corp:8200
-  tags:
-    - shared
-    - shell 
-  before_script:
-    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=dev-projects jwt=${VAULT_ID_TOKEN})"
-    - export HARBOR_USER="$(vault kv get -field=login secret/dev/harbor)"
-    - export HARBOR_PASSWORD="$(vault kv get -field=password secret/dev/harbor)"
-    - echo $HARBOR_PASSWORD | docker login ${HARBOR_HOST} -u $HARBOR_USER --password-stdin
-    - export KUBE_CONFIG="$(vault kv get -field=config secret/dev/k8s)"
-    - mkdir ~/.kube
-    - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
   script:
-    - echo "Deploying the application... nginx"
-    - kubectl apply -f deployment.yaml --namespace=dev --validate=false
-  after_script:
-    - rm -rf ~/.kube
+    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=dev-projects jwt=${VAULT_ID_TOKEN})"
+    - echo $VAULT_TOKEN | base64
